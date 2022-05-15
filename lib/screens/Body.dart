@@ -5,88 +5,29 @@ import 'package:provider/provider.dart';
 class Mainbody extends StatelessWidget {
   const Mainbody({Key key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          _MyAppBar(),
-          const SliverToBoxAdapter(child: SizedBox(height: 12)),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-                (context, index) => _MyListItem(index)),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _MyListItem extends StatelessWidget {
-  final int index;
-
-  const _MyListItem(this.index);
-
-  @override
-  Widget build(BuildContext context) {
-    var timer = context.select<TimersModel, Timer>(
-      (timers) => timers.getByPosition(index),
-    );
-
-    if (timer == null) {
-      return Container();
-    }
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: LimitedBox(
-        maxHeight: 48,
-        child: Row(
-          children: [
-            Container(
-              height: 50,
-              margin: EdgeInsets.all(2),
-              color: Colors.blue[200],
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${timer.name}',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {},
-                    )
-                  ]),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _AddButton extends StatelessWidget {
-  const _AddButton({Key key}) : super(key: key);
-
   Future<void> _displayTextInputDialog(BuildContext context) async {
+    TextEditingController nameController = TextEditingController();
+
     return showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
             title: Text('New Timer'),
             content: TextField(
-              controller: context.select<TimersModel, TextEditingController>(
-                (timers) => timers.nameController,
-              ),
+              controller: nameController,
               decoration: InputDecoration(hintText: "insert name here..."),
             ),
             actions: <Widget>[
               ElevatedButton(
-                // color: Colors.green,
-                // textColor: Colors.white,
                 child: Text('OK'),
                 onPressed: () {
+                  String timerName = nameController.text;
+                  if (timerName.isNotEmpty) {
+                    context.read<TimersModel>().add(Timer(
+                          name: timerName,
+                          time: 0,
+                        ));
+                  }
                   Navigator.pop(context);
                 },
               ),
@@ -97,22 +38,49 @@ class _AddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {
-        _displayTextInputDialog(context);
-      },
-      tooltip: 'Add Timer',
-      child: Icon(Icons.add),
+    return Scaffold(
+      appBar: AppBar(title: Text('Mainbody')),
+      body: Container(
+          child: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: _TimersList(),
+            ),
+          )
+        ],
+      )),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _displayTextInputDialog(context);
+        },
+        tooltip: 'Add Timer',
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
 
-class _MyAppBar extends StatelessWidget {
+// TODO IMPLEMENT TIMER WIDGET
+class _TimersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      title: Text('Catalog'),
-      floating: true,
+    var timers = context.watch<TimersModel>();
+
+    return ListView.builder(
+      itemCount: timers.timers.length,
+      itemBuilder: (context, index) => ListTile(
+        trailing: IconButton(
+          icon: const Icon(Icons.remove_circle_outline),
+          onPressed: () {
+            timers.remove(timers.timers[index].id);
+          },
+        ),
+        title: Text(
+          timers.timers[index].name,
+        ),
+      ),
     );
   }
 }
