@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/Body.dart';
-import 'models/Timer.dart';
+import 'models/TimerModel.dart';
+import 'common/Themes.dart';
 
 void main() {
   runApp(
@@ -17,11 +18,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      title: 'Timer management',
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.system,
+      theme: Themes.lightTheme,
+      darkTheme: Themes.darkTheme,
       home: Mainbody(),
     );
   }
