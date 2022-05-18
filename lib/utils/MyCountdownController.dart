@@ -1,13 +1,9 @@
 import 'package:timer_count_down/timer_controller.dart';
 
 class MyCountdownController extends CountdownController {
-  @override
-  bool isCompleted;
-
   bool isPaused;
 
-  MyCountdownController(
-      {autoStart = false, this.isCompleted = false, this.isPaused = true})
+  MyCountdownController({autoStart = false, this.isPaused = true})
       : super(autoStart: autoStart);
 
   @override

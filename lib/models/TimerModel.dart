@@ -45,13 +45,9 @@ class TimersModel extends ChangeNotifier {
 class TimerItem {
   // dataclass for timer's widget
   static int idCounter = 0;
-
-  final int id;
+  final int id, time;
   final String name;
-  final int time;
-  final Color color = Color.fromARGB(0, 0, 0, 0); // UNUSED
 
-  // TODO: implement or remove color
   TimerItem({
     this.name,
     this.time,
