@@ -35,3 +35,16 @@ Future<void> displayTextInputDialog(BuildContext context) async {
         );
       });
 }
+
+Future<TimeOfDay> selectTimeDialog(context) async {
+  TimeOfDay _time = TimeOfDay(hour: 7, minute: 15);
+
+  final TimeOfDay newTime = await showTimePicker(
+    context: context,
+    initialTime: _time,
+  );
+  Navigator.pop(context);
+  if (newTime != null) {
+    return newTime;
+  }
+}
