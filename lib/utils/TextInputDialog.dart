@@ -4,6 +4,7 @@ import 'package:clock_timer/models/TimerModel.dart';
 import 'dart:math';
 
 Future<void> displayTextInputDialog(BuildContext context) async {
+  // TODO: redo with proper parameters
   TextEditingController nameController = TextEditingController();
 
   return showDialog(

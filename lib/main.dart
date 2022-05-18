@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/Body.dart';
+import 'screens/MainScreen/Main.dart';
 import 'models/TimerModel.dart';
 import 'common/Themes.dart';
 

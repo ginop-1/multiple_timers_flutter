@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 class TimersModel extends ChangeNotifier {
   List<TimerItem> timers = [
     TimerItem(name: 'TEST Timer 1', time: 0),
-    TimerItem(name: 'TEST Timer 2', time: (Random().nextInt(10) + 1)),
-    TimerItem(name: 'TEST Timer 3', time: (Random().nextInt(10) + 1))
+    TimerItem(name: 'TEST Timer 2', time: (Random().nextInt(5) + 1)),
+    TimerItem(name: 'TEST Timer 3', time: (Random().nextInt(5) + 1))
   ];
 
   void add(TimerItem timer) {
@@ -26,6 +26,10 @@ class TimersModel extends ChangeNotifier {
 
   void removeAll() {
     timers.clear();
+    notifyListeners();
+  }
+
+  void rebuild() {
     notifyListeners();
   }
 
