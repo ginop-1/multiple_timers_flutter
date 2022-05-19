@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/TimerModel.dart';
-import '../../utils/TextInputDialog.dart' as TextInputDialog;
+import '../../utils/InputDialogs.dart' as InputDialogs;
+
 import '../widgets/Timer.dart';
 
 class Mainbody extends StatelessWidget {
@@ -14,7 +15,9 @@ class Mainbody extends StatelessWidget {
       appBar: AppBar(title: Text('Your timers List')),
       body: _TimersList(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => TextInputDialog.displayTextInputDialog(context),
+        onPressed: () {
+          InputDialogs.testDialog(context, "Insert timer name here...");
+        },
         tooltip: 'Add Timer',
         child: Icon(Icons.add),
       ),

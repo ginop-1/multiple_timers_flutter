@@ -49,6 +49,7 @@ class _TimerWidgetState extends State<TimerWidget> {
                   widget.timer.name,
                   style: TextStyle(fontSize: 20),
                 ),
+                // TODO: FIX NOT UPDATING AFTER NEW TIMER IS ADDED
                 Countdown(
                   controller: widget._controller,
                   seconds: widget.timer.time,

@@ -8,24 +8,28 @@ class MyCountdownController extends CountdownController {
 
   @override
   void start() {
+    print(this.toString());
     isPaused = false;
     super.start();
   }
 
   @override
   void pause() {
+    print("pause");
     isPaused = true;
     super.pause();
   }
 
   @override
   void resume() {
+    print("resume");
     isPaused = false;
     super.resume();
   }
 
   @override
   void restart() {
+    print("restart");
     isPaused = false;
     super.restart();
   }
